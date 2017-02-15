@@ -1,0 +1,17 @@
+*** ./smali/android/app/ActivityThread.smali	2017-02-15 19:20:45.062360370 +0900
+--- /home/fullgreen/build/nougat/patchrom/c1skt/temp/new_smali/framework.jar.out/./smali/android/app/ActivityThread.smali	2017-02-15 19:18:42.750357290 +0900
+***************
+*** 6345,6350 ****
+--- 6345,6356 ----
+      invoke-virtual {v2}, Ldalvik/system/VMRuntime;->clearGrowthLimit()V
+  
+      :goto_a
++     move-object/from16 v0, p1
++ 
++     iget-object v2, v0, Landroid/app/ActivityThread$AppBindData;->appInfo:Landroid/content/pm/ApplicationInfo;
++ 
++     invoke-static {v2}, Lcom/miui/whetstone/app/WhetstoneAppManager;->trimHeapSizeIfNeeded(Landroid/content/pm/ApplicationInfo;)V
++ 
+      invoke-static {}, Landroid/os/StrictMode;->allowThreadDiskWrites()Landroid/os/StrictMode$ThreadPolicy;
+  
+      move-result-object v26

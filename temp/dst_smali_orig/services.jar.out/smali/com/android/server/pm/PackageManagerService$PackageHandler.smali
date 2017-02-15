@@ -1837,7 +1837,6 @@
 
     const/4 v7, 0x1
 
-    invoke-virtual {v2, v3, v5, v7}, Landroid/app/AppOpsManager;->setPrivacyGuardSettingForPackage(ILjava/lang/String;Z)V
 
     goto/16 :goto_f
 

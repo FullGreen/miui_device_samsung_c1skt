@@ -1180,7 +1180,6 @@
     invoke-virtual {v1, v4}, Lcom/android/server/am/ActivityStackSupervisor$ActivityDisplay;->setVisibleBehindActivity(Lcom/android/server/am/ActivityRecord;)V
 
     :cond_2
-    invoke-direct {p0, p1}, Lcom/android/server/am/ActivityStack;->updatePrivacyGuardNotificationLocked(Lcom/android/server/am/ActivityRecord;)V
 
     invoke-direct {p0, p1}, Lcom/android/server/am/ActivityStack;->updateProtectedAppNotificationLocked(Lcom/android/server/am/ActivityRecord;)V
 
@@ -4607,19 +4606,7 @@
     return-void
 
     :cond_0
-    iget-object v4, p0, Lcom/android/server/am/ActivityStack;->mService:Lcom/android/server/am/ActivityManagerService;
-
-    iget-object v4, v4, Lcom/android/server/am/ActivityManagerService;->mAppOpsService:Lcom/android/server/AppOpsService;
-
-    iget-object v5, p1, Lcom/android/server/am/ActivityRecord;->app:Lcom/android/server/am/ProcessRecord;
-
-    iget v5, v5, Lcom/android/server/am/ProcessRecord;->uid:I
-
-    iget-object v6, p1, Lcom/android/server/am/ActivityRecord;->packageName:Ljava/lang/String;
-
-    invoke-virtual {v4, v5, v6}, Lcom/android/server/AppOpsService;->getPrivacyGuardSettingForPackage(ILjava/lang/String;)Z
-
-    move-result v1
+    const/4 v1, 0x0
 
     .local v1, "privacy":Z
     iget-object v4, p0, Lcom/android/server/am/ActivityStack;->mService:Lcom/android/server/am/ActivityManagerService;
@@ -7173,6 +7160,7 @@
     return v9
 
     :cond_10
+
     iget-object v9, p1, Lcom/android/server/am/ActivityRecord;->info:Landroid/content/pm/ActivityInfo;
 
     invoke-virtual {v9}, Landroid/content/pm/ActivityInfo;->getRealConfigChanged()I

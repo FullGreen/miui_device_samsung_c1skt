@@ -16335,33 +16335,8 @@
     goto/16 :goto_3
 
     :cond_d
-    move-object/from16 v0, p0
-
-    iget-boolean v0, v0, Lcom/android/server/pm/PackageManagerService;->mPromoteSystemApps:Z
-
-    move/from16 v23, v0
-
-    if-eqz v23, :cond_e
 
     invoke-static/range {v20 .. v20}, Lcom/android/server/pm/PackageManagerService;->isSystemApp(Lcom/android/server/pm/PackageSetting;)Z
-
-    move-result v23
-
-    if-eqz v23, :cond_e
-
-    move-object/from16 v0, p0
-
-    iget-object v0, v0, Lcom/android/server/pm/PackageManagerService;->mExistingSystemPackages:Landroid/util/ArraySet;
-
-    move-object/from16 v23, v0
-
-    move-object/from16 v0, v20
-
-    iget-object v0, v0, Lcom/android/server/pm/PackageSetting;->name:Ljava/lang/String;
-
-    move-object/from16 v24, v0
-
-    invoke-virtual/range {v23 .. v24}, Landroid/util/ArraySet;->contains(Ljava/lang/Object;)Z
 
     move-result v23
 
@@ -20038,7 +20013,8 @@
 
     .end local v3    # "npi":Landroid/content/pm/PackageParser$NewPermissionInfo;
     :cond_0
-    return v1
+    const/4 v4, 0x1
+    return v4
 
     .restart local v3    # "npi":Landroid/content/pm/PackageParser$NewPermissionInfo;
     :cond_1
@@ -50738,6 +50714,15 @@
     check-cast v6, Landroid/content/pm/PackageParser$Activity;
 
     .local v6, "a":Landroid/content/pm/PackageParser$Activity;
+    invoke-static {}, Lmiui/securityspace/XSpaceUserHandle;->isXSpaceUserCalling()Z
+
+    move-result v0
+
+    if-eqz v0, :cond_miui_2
+
+    or-int/lit16 p2, p2, 0x2000
+
+    :cond_miui_2
     if-eqz v6, :cond_2
 
     iget-object v0, p0, Lcom/android/server/pm/PackageManagerService;->mSettings:Lcom/android/server/pm/Settings;
@@ -51286,7 +51271,7 @@
 .end method
 
 .method public getApplicationInfo(Ljava/lang/String;II)Landroid/content/pm/ApplicationInfo;
-    .locals 9
+    .locals 10
     .param p1, "packageName"    # Ljava/lang/String;
     .param p2, "flags"    # I
     .param p3, "userId"    # I
@@ -51367,7 +51352,22 @@
     .catchall {:try_start_1 .. :try_end_1} :catchall_0
 
     move-result-object v0
+    
+    if-nez v0, :cond_miui_2
+    
+    invoke-static {}, Lmiui/securityspace/XSpaceUserHandle;->isXSpaceUserCalling()Z
 
+    move-result v9
+
+    if-eqz v9, :cond_miui_2
+
+    or-int/lit16 p2, p2, 0x2000
+
+    invoke-direct {p0, p1, p2, p3}, Lcom/android/server/pm/PackageManagerService;->generateApplicationInfoFromSettingsLPw(Ljava/lang/String;II)Landroid/content/pm/ApplicationInfo;
+
+    move-result-object v0
+    
+    :cond_miui_2
     monitor-exit v1
 
     return-object v0
@@ -53035,7 +53035,7 @@
 .end method
 
 .method public getPackageInfo(Ljava/lang/String;II)Landroid/content/pm/PackageInfo;
-    .locals 8
+    .locals 9
     .param p1, "packageName"    # Ljava/lang/String;
     .param p2, "flags"    # I
     .param p3, "userId"    # I
@@ -53092,6 +53092,21 @@
 
     move-result-object v0
 
+    if-nez v7, :cond_miui_1
+
+    invoke-static {}, Lmiui/securityspace/XSpaceUserHandle;->isXSpaceUserCalling()Z
+
+    move-result v8
+
+    if-eqz v8, :cond_miui_1
+
+    or-int/lit16 p2, p2, 0x2000
+
+    invoke-direct {p0, p1, p2, p3}, Lcom/android/server/pm/PackageManagerService;->generatePackageInfoFromSettingsLPw(Ljava/lang/String;II)Landroid/content/pm/PackageInfo;
+
+    move-result-object v0
+
+    :cond_miui_1
     monitor-exit v1
 
     return-object v0
@@ -54821,6 +54836,15 @@
     check-cast v7, Landroid/content/pm/PackageParser$Service;
 
     .local v7, "s":Landroid/content/pm/PackageParser$Service;
+    invoke-static {}, Lmiui/securityspace/XSpaceUserHandle;->isXSpaceUserCalling()Z
+
+    move-result v0
+
+    if-eqz v0, :cond_miui_1
+
+    or-int/lit16 p2, p2, 0x2000
+
+    :cond_miui_1
     if-eqz v7, :cond_2
 
     iget-object v0, p0, Lcom/android/server/pm/PackageManagerService;->mSettings:Lcom/android/server/pm/Settings;
@@ -56711,6 +56735,12 @@
     .local v8, "state":Landroid/content/pm/PackageUserState;
     if-eqz v8, :cond_1
 
+    invoke-static {}, Lmiui/securityspace/XSpaceUserHandle;->isXSpaceUserCalling()Z
+    
+    move-result v3
+    
+    if-nez v3, :cond_1
+    
     invoke-static {v8}, Landroid/content/pm/PackageParser;->isAvailable(Landroid/content/pm/PackageUserState;)Z
     :try_end_0
     .catchall {:try_start_0 .. :try_end_0} :catchall_0
