@@ -56,7 +56,9 @@ include $(PORT_BUILD)/porting.mk
 local-pre-zip-misc:
 	@echo copy files
 	cp -a -rf other/system/* $(ZIP_DIR)/system/
-
+	echo "# Battery" >> $(ZIP_DIR)/system/build.prop
+	echo "pm.sleep_mode=1" >> $(ZIP_DIR)/system/build.prop
+	echo "ro.ril.disable.power.collapse=0" >> $(ZIP_DIR)/system/build.prop
 	@echo goodbye! miui prebuilt binaries!
 	rm -rf $(ZIP_DIR)/system/bin/app_process32_vendor
 	cp -rf stockrom/system/bin/app_process32 $(ZIP_DIR)/system/bin/app_process32
