@@ -23,6 +23,7 @@ private-phone-apps := \
 	Stk \
 	telresources \
 	WAPPushManager \
+	telresources \
 	webview
 
 private-phone-priv-apps := \
