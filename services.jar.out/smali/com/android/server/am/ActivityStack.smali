@@ -8146,7 +8146,19 @@
 
     .line 3996
     :cond_10
+    iget-object v9, p1, Lcom/android/server/am/ActivityRecord;->packageName:Ljava/lang/String;
 
+    invoke-static {v9, v0, v4, v2}, Landroid/app/MiuiThemeHelper;->canKeepActivityAlive(Ljava/lang/String;ILandroid/content/res/Configuration;Landroid/content/res/Configuration;)Z
+
+    move-result v9
+
+    if-eqz v9, :cond_11
+
+    const/4 v9, 0x1
+
+    return v9
+
+    :cond_11
     iget-object v9, p1, Lcom/android/server/am/ActivityRecord;->info:Landroid/content/pm/ActivityInfo;
 
     invoke-virtual {v9}, Landroid/content/pm/ActivityInfo;->getRealConfigChanged()I
@@ -8157,14 +8169,14 @@
 
     and-int/2addr v9, v0
 
-    if-nez v9, :cond_11
+    if-nez v9, :cond_12
 
     iget-boolean v9, p1, Lcom/android/server/am/ActivityRecord;->forceNewConfig:Z
 
-    if-eqz v9, :cond_16
+    if-eqz v9, :cond_17
 
     .line 3998
-    :cond_11
+    :cond_12
     iget v9, p1, Lcom/android/server/am/ActivityRecord;->configChangeFlags:I
 
     or-int/2addr v9, v0
@@ -8184,16 +8196,16 @@
     .line 4001
     iget-object v9, p1, Lcom/android/server/am/ActivityRecord;->app:Lcom/android/server/am/ProcessRecord;
 
-    if-eqz v9, :cond_12
+    if-eqz v9, :cond_13
 
     iget-object v9, p1, Lcom/android/server/am/ActivityRecord;->app:Lcom/android/server/am/ProcessRecord;
 
     iget-object v9, v9, Lcom/android/server/am/ProcessRecord;->thread:Landroid/app/IApplicationThread;
 
-    if-nez v9, :cond_13
+    if-nez v9, :cond_14
 
     .line 4004
-    :cond_12
+    :cond_13
     const-string/jumbo v9, "config"
 
     const/4 v10, 0x1
@@ -8207,12 +8219,12 @@
     return v9
 
     .line 4005
-    :cond_13
+    :cond_14
     iget-object v9, p1, Lcom/android/server/am/ActivityRecord;->state:Lcom/android/server/am/ActivityStack$ActivityState;
 
     sget-object v10, Lcom/android/server/am/ActivityStack$ActivityState;->PAUSING:Lcom/android/server/am/ActivityStack$ActivityState;
 
-    if-ne v9, v10, :cond_14
+    if-ne v9, v10, :cond_15
 
     .line 4011
     const/4 v9, 0x1
@@ -8225,12 +8237,12 @@
     return v9
 
     .line 4013
-    :cond_14
+    :cond_15
     iget-object v9, p1, Lcom/android/server/am/ActivityRecord;->state:Lcom/android/server/am/ActivityStack$ActivityState;
 
     sget-object v10, Lcom/android/server/am/ActivityStack$ActivityState;->RESUMED:Lcom/android/server/am/ActivityStack$ActivityState;
 
-    if-ne v9, v10, :cond_15
+    if-ne v9, v10, :cond_16
 
     .line 4020
     iget v9, p1, Lcom/android/server/am/ActivityRecord;->configChangeFlags:I
@@ -8247,7 +8259,7 @@
     goto :goto_3
 
     .line 4025
-    :cond_15
+    :cond_16
     iget v9, p1, Lcom/android/server/am/ActivityRecord;->configChangeFlags:I
 
     const/4 v10, 0x0
@@ -8262,16 +8274,16 @@
     goto :goto_3
 
     .line 4038
-    :cond_16
+    :cond_17
     iget-object v9, p1, Lcom/android/server/am/ActivityRecord;->app:Lcom/android/server/am/ProcessRecord;
 
-    if-eqz v9, :cond_17
+    if-eqz v9, :cond_18
 
     iget-object v9, p1, Lcom/android/server/am/ActivityRecord;->app:Lcom/android/server/am/ProcessRecord;
 
     iget-object v9, v9, Lcom/android/server/am/ProcessRecord;->thread:Landroid/app/IApplicationThread;
 
-    if-eqz v9, :cond_17
+    if-eqz v9, :cond_18
 
     .line 4041
     :try_start_0
@@ -8294,7 +8306,7 @@
     .catch Landroid/os/RemoteException; {:try_start_0 .. :try_end_0} :catch_0
 
     .line 4047
-    :cond_17
+    :cond_18
     :goto_4
     const/4 v9, 0x0
 
