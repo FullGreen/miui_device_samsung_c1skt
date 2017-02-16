@@ -22,7 +22,8 @@ private-phone-apps := \
 	SamsungServiceMode \
 	Stk \
 	telresources \
-	WAPPushManager
+	WAPPushManager \
+	webview
 
 private-phone-priv-apps := \
 	AudioFX \
