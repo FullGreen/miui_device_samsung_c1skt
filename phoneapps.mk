@@ -40,8 +40,6 @@ private-phone-priv-apps := \
 	SharedStorageBackup \
 	Shell \
 	Tag \
-	Telecom \
-	TelephonyProvider \
 	TeleService \
 	ThemesProvider
 
